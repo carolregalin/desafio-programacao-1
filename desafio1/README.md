@@ -1,24 +1,57 @@
-# README
+# Desafio1 :notebook:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Este projeto, é uma simples iterface web, que permite o upload de um arquivo e salva o conteúdo dele no banco de dados.
 
-Things you may want to cover:
+## Do que você vai precisar :point_down:
 
-* Ruby version
+Ruby versão: 
+```
+2.4.3
+```
 
-* System dependencies
+Rails versão:
+```
+5.0.7.2
+```
+Mysql versão :
+```
+MySql 5.7.26
+```
 
-* Configuration
+## Bora rodar esse projeto? :ok_woman:
 
-* Database creation
+1. Primeiramente, altere o arquivo _database.yml_, com os dados para a conexão do seu banco de dados.
 
-* Database initialization
+```
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  host: <seu host>
+  username: <seu username>
+  password: <sua senha>
+  
+```
 
-* How to run the test suite
+2. Agora você precisa alterar o nome da database, para rodar o projeto. Ainda no mesmo arquivo  _database.yml_, nos ambientes, caso você for rodar localmente, você pode alterar apenas o ambiente _development_.
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+development:
+  <<: *default
+  database: <sua database>
+  
+```
+4. Rodar o Bundle para instalar as depêndencias:
+```
+bundle install
+```
+3. Rodar migrations para a crição das tabelas na database:
+```
+rake db:migrate
+```
+4. Iniciar o projeto:
 
-* Deployment instructions
+```
+rails s
+```
 
-* ...
+Prontinho, agora é só começar a fazer o upload para dos seus aquivos, acessando localhost:3000/purchase. :bowtie:
