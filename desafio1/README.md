@@ -1,6 +1,6 @@
-# Desafio1 :notebook:
+# Desafio1
 
-Este projeto, é uma simples iterface web, que permite o upload de um arquivo e salva o conteúdo dele no banco de dados.
+Este projeto, é uma simples interface web que permite o upload de um arquivo e salva o conteúdo dele no banco de dados.
 
 ## Do que você vai precisar :point_down:
 
