@@ -7,7 +7,7 @@ class PurchaseController < ApplicationController
        purchases = parse_file(params[:purchase_file])
 
        purchases.each do |purchase|
-            item = Item.find_or_create_by(description: purchase[:item][:description], price: purchase[:item][:item_price])
+            item = Item.find_or_create_by(description: purchase[:item][:description], price: purchase[:item][:price])
 
             purchaser = Purchaser.find_or_create_by(name: purchase[:purchaser][:name])
 
@@ -20,10 +20,13 @@ class PurchaseController < ApplicationController
             })
 
             p.save
+
             p.purchase_items.create(item: item)
         end
 
-       #TODO - rotina para consultar tudo o que foi adicionado
+        gross_total = purchases.map { |p| p[:item][:price] }.sum
+
+        render json: { gross_total: gross_total }
     end
 
     private
@@ -39,7 +42,7 @@ class PurchaseController < ApplicationController
                     purchase = {
                         count: row_purchase[3],
                         purchaser: { name: row_purchase[0] },
-                        item: { description: row_purchase[1], price: row_purchase[2] },
+                        item: { description: row_purchase[1], price: row_purchase[2].to_f },
                         merchant: { address: row_purchase[4], name: row_purchase[4] }
                     }
 
