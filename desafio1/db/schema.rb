@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20190821171215) do
   end
 
   create_table "purchase_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "items_id"
-    t.integer "purchases_id"
-    t.index ["items_id"], name: "index_purchase_items_on_items_id", using: :btree
-    t.index ["purchases_id"], name: "index_purchase_items_on_purchases_id", using: :btree
+    t.integer "item_id"
+    t.integer "purchase_id"
+    t.index ["item_id"], name: "index_purchase_items_on_item_id", using: :btree
+    t.index ["purchase_id"], name: "index_purchase_items_on_purchase_id", using: :btree
   end
 
   create_table "purchasers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

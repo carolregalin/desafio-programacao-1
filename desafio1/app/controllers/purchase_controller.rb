@@ -12,7 +12,16 @@ class PurchaseController < ApplicationController
             purchaser = Purchaser.find_or_create_by(name: purchase[:purchaser][:name])
 
             merchant = Merchant.find_or_create_by(address: purchase[:merchant][:address], name: purchase[:merchant][:name])
-       end
+
+            p = Purchase.new({
+                count: purchase.count,
+                merchants_id: merchant.id,
+                purchasers_id: purchaser.id
+            })
+
+            p.save
+            p.purchase_items.create(item: item)
+        end
 
        #TODO - rotina para consultar tudo o que foi adicionado
     end
