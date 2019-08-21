@@ -13,13 +13,13 @@
 ActiveRecord::Schema.define(version: 20190821171215) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string  "item_description"
-    t.decimal "item_price",       precision: 5, scale: 2
+    t.string  "description"
+    t.decimal "price",       precision: 5, scale: 2
   end
 
   create_table "merchants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string "merchant_address"
-    t.string "merchant_name"
+    t.string "address"
+    t.string "name"
   end
 
   create_table "purchase_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -41,8 +41,6 @@ ActiveRecord::Schema.define(version: 20190821171215) do
     t.index ["purchasers_id"], name: "index_purchases_on_purchasers_id", using: :btree
   end
 
-  add_foreign_key "purchase_items", "items", column: "items_id"
-  add_foreign_key "purchase_items", "purchases", column: "purchases_id"
   add_foreign_key "purchases", "merchants", column: "merchants_id"
   add_foreign_key "purchases", "purchasers", column: "purchasers_id"
 end
