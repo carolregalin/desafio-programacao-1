@@ -4,29 +4,33 @@ class PurchaseController < ApplicationController
     end
 
     def upload
-       purchases = parse_file(params[:purchase_file])
+       if params[:purchase_file].present?
+            purchases = parse_file(params[:purchase_file])
 
-       purchases.each do |purchase|
-            item = Item.find_or_create_by(description: purchase[:item][:description], price: purchase[:item][:price])
+            purchases.each do |purchase|
+                item = Item.find_or_create_by(description: purchase[:item][:description], price: purchase[:item][:price])
 
-            purchaser = Purchaser.find_or_create_by(name: purchase[:purchaser][:name])
+                purchaser = Purchaser.find_or_create_by(name: purchase[:purchaser][:name])
 
-            merchant = Merchant.find_or_create_by(address: purchase[:merchant][:address], name: purchase[:merchant][:name])
+                merchant = Merchant.find_or_create_by(address: purchase[:merchant][:address], name: purchase[:merchant][:name])
 
-            p = Purchase.new({
-                count: purchase.count,
-                merchants_id: merchant.id,
-                purchasers_id: purchaser.id
-            })
+                p = Purchase.new({
+                    count: purchase.count,
+                    merchants_id: merchant.id,
+                    purchasers_id: purchaser.id
+                })
 
-            p.save
+                p.save
 
-            p.purchase_items.create(item: item)
+                p.purchase_items.create(item: item)
+            end
+
+            gross_total = purchases.map { |p| p[:item][:price] }.sum
+
+            render json: { message: 'Arquivo importado com sucesso =D', gross_total: gross_total }
+        else
+            render json: { error: 'Ooops, você deve selecionar um arquivo para continuar!' }, status: :not_found
         end
-
-        gross_total = purchases.map { |p| p[:item][:price] }.sum
-
-        render json: { gross_total: gross_total }
     end
 
     private
