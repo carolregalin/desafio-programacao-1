@@ -13,7 +13,7 @@ Rails versão:
 ```
 5.0.7.2
 ```
-Mysql versão :
+MySql versão :
 ```
 MySql 5.7.26
 ```
