@@ -27,7 +27,7 @@ class PurchaseController < ApplicationController
 
             gross_total = purchases.map { |p| p[:item][:price] }.sum
 
-            render json: { message: 'Arquivo importado com sucesso =D', gross_total: gross_total }
+            render json: { message: 'Arquivo importado com sucesso =D', gross_total: gross_total }, status: :ok
         else
             render json: { error: 'Ooops, você deve selecionar um arquivo para continuar!' }, status: :not_found
         end
