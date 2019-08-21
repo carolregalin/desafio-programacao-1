@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190821125316) do
+ActiveRecord::Schema.define(version: 20190821171215) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string  "item_description"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20190821125316) do
   end
 
   create_table "purchase_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "purchase_id"
-    t.integer "item_id"
-    t.index ["item_id"], name: "fk_rails_125ca55cab", using: :btree
-    t.index ["purchase_id"], name: "fk_rails_62c1aa0bbe", using: :btree
+    t.integer "items_id"
+    t.integer "purchases_id"
+    t.index ["items_id"], name: "index_purchase_items_on_items_id", using: :btree
+    t.index ["purchases_id"], name: "index_purchase_items_on_purchases_id", using: :btree
   end
 
   create_table "purchasers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -34,14 +34,15 @@ ActiveRecord::Schema.define(version: 20190821125316) do
   end
 
   create_table "purchases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "purchaser_id"
-    t.integer "merchant_id"
-    t.index ["merchant_id"], name: "fk_rails_a83f94a7bf", using: :btree
-    t.index ["purchaser_id"], name: "fk_rails_81dfc754d2", using: :btree
+    t.integer "count"
+    t.integer "purchasers_id"
+    t.integer "merchants_id"
+    t.index ["merchants_id"], name: "index_purchases_on_merchants_id", using: :btree
+    t.index ["purchasers_id"], name: "index_purchases_on_purchasers_id", using: :btree
   end
 
-  add_foreign_key "purchase_items", "items"
-  add_foreign_key "purchase_items", "purchases"
-  add_foreign_key "purchases", "merchants"
-  add_foreign_key "purchases", "purchasers"
+  add_foreign_key "purchase_items", "items", column: "items_id"
+  add_foreign_key "purchase_items", "purchases", column: "purchases_id"
+  add_foreign_key "purchases", "merchants", column: "merchants_id"
+  add_foreign_key "purchases", "purchasers", column: "purchasers_id"
 end

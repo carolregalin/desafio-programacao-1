@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Upload purchase</title>
+</head>
+    <body>
+      <header>
+        <h1>Upload purchase</h1>
+      </header>
+      <main>
+        <%= form_tag({:action => :upload}, :multipart => true) do %>
+            <%= label_tag(:purchase_file, "") %>
+             <%= file_field_tag :purchase_file,  :accept => 'text' %>
+        <%= submit_tag("Enviar") %>
+        <% end %>
+      </main>
+    </body>
+</html>
