@@ -7,23 +7,7 @@ class PurchaseController < ApplicationController
        if params[:purchase_file].present?
             purchases = parse_file(params[:purchase_file])
 
-            purchases.each do |purchase|
-                item = Item.find_or_create_by(description: purchase[:item][:description], price: purchase[:item][:price])
-
-                purchaser = Purchaser.find_or_create_by(name: purchase[:purchaser][:name])
-
-                merchant = Merchant.find_or_create_by(address: purchase[:merchant][:address], name: purchase[:merchant][:name])
-
-                p = Purchase.new({
-                    count: purchase.count,
-                    merchants_id: merchant.id,
-                    purchasers_id: purchaser.id
-                })
-
-                p.save
-
-                p.purchase_items.create(item: item)
-            end
+            Purchase.create_purchases(purchases)
 
             gross_total = purchases.map { |p| p[:item][:price] }.sum
 
@@ -42,12 +26,14 @@ class PurchaseController < ApplicationController
         File.open(file.path) do |f|
             while line = f.gets
                 if(not_is_first_line(first_line, line))
-                    row_purchase = line.split("\t")
+                    
+                    row_purchase = line.delete!("\n").split("\t")
+
                     purchase = {
                         count: row_purchase[3],
                         purchaser: { name: row_purchase[0] },
                         item: { description: row_purchase[1], price: row_purchase[2].to_f },
-                        merchant: { address: row_purchase[4], name: row_purchase[4] }
+                        merchant: { address: row_purchase[4], name: row_purchase[5] }
                     }
 
                     purchases.push(purchase)
