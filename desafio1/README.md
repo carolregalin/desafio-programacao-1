@@ -18,7 +18,7 @@ MySql versão :
 MySql 5.7.26
 ```
 
-## Bora rodar esse projeto? :ok_woman:
+## Como rodar esse projeto? :ok_woman:
 
 1. Primeiramente, altere o arquivo _database.yml_, com os dados para a conexão do seu banco de dados.
 
