@@ -54,4 +54,4 @@ rake db:migrate
 rails s
 ```
 
-Prontinho, agora é só começar a fazer o upload para dos seus aquivos, acessando localhost:3000/purchase. :bowtie:
+Pronto, agora é só começar a fazer o upload para dos seus aquivos, acessando /purchase. :bowtie:
