@@ -3,6 +3,7 @@ class Purchase < ApplicationRecord
     has_many :items, through: :purchase_item
     has_one :purchaser
     has_one :merchant
+    validates :count, numericality: true, presence: true
 
     def self.create_purchases(purchases)
         purchases.each do |purchase|
