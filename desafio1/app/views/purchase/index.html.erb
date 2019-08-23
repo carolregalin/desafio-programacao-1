@@ -14,6 +14,14 @@
              <%= file_field_tag :purchase_file,  :accept => 'text' %>
         <%= submit_tag("Enviar") %>
         <% end %>
+        <% if params[:error] %>
+           Oops, : <%=params[:message]%>
+        <% else %>
+           <%= debugger
+           params[:message]
+           %><br>
+           Total bruto: <%=params[:gross_total]%>
+        <% end %>
       </main>
     </body>
 </html>
